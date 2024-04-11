@@ -96,7 +96,7 @@
             let swiper_div = $('.swiper-wrapper');
             let html_data = "";
 
-            for (const ads in data) {
+            for (const ads of data) {
                 html_data += "<div class='swiper-slide'>" +
                     "<div class='player_area'>" +
                         "<img class='player_img' src='" + ads.imageUrl + "'>" +
