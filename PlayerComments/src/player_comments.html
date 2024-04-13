@@ -44,7 +44,7 @@
             })
             .then(function(json) {
                 // makeComments(json.comments.filter(x => x.match == match));
-                makeAds(json.ads);
+                makeContents(json);
 
                 resizePlayerInfo();
                 resizeComment();
@@ -59,6 +59,44 @@
                 });
             });
 
+        function makeContents(data) {
+            let swiper_div = $('.swiper-wrapper');
+            let html_data = "";
+
+            for (const comment of data.comments) {
+                let table_choice;
+                switch(comment.table) {
+                    case 1:
+                        table_choice = "配信卓";
+                        break;
+                    case 2:
+                        table_choice = "B卓";
+                        break;
+                    case 3:
+                        table_choice = "C卓";
+                        break;
+                }
+
+                html_data += "<div class='swiper-slide'>" +
+                    "<div class='player_area'>" +
+                        "<img class='player_img' src='" + comment.playerImageUrl + "'>" +
+                        "<div class='table'><span class='table_text'>" + table_choice + "</span></div>" +
+                        "<p class='team_name'>" + comment.teamName + "</p>" +
+                        "<p class='player_name'>" + comment.playerName + "</p>" +
+                        "<p class='comment'>" + comment.comment + "</p>" +
+                    "</div>" +
+                    "</div>";
+            }
+            for (const ads of data.ads) {
+                html_data += "<div class='swiper-slide'>" +
+                    "<div class='player_area'>" +
+                        "<img class='ads_iamge' src='" + ads.imageUrl + "'>" +
+                    "</div>" +
+                    "</div>";
+            }
+
+            swiper_div.append(html_data);
+        }
         // 意気込み部分を作成
         function makeComments(data) {
             let swiper_div = $('.swiper-wrapper');
